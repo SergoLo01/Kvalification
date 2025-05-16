@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СусідОбмін - Локальний обмін речами та послугами</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-hands-helping"></i> СусідОбмін</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Головна</a></li>
+                    <li><a href="#offers">Пропозиції</a></li>
+                    <li><a href="#requests">Запити</a></li>
+                    <li><a href="#add">Додати</a></li>
+                    <li><a href="#profile">Профіль</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn">Увійти</button>
+                <button id="registerBtn">Реєстрація</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home">
+            <div class="hero">
+                <h2>Обмін речами та послугами з вашими сусідами</h2>
+                <p>Економте гроші, зменшуйте споживання, будуйте спільноту!</p>
+                <button class="cta-button">Почати обмін</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span id="usersCount">0</span>
+                    <p>Користувачів</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span id="exchangesCount">0</span>
+                    <p>Обмінів</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="neighborhoodsCount">0</span>
+                    <p>Районів</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="offers">
+            <h2>Останні пропозиції</h2>
+            <div class="filter-bar">
+                <select id="categoryFilter">
+                    <option value="all">Всі категорії</option>
+                    <option value="furniture">Меблі</option>
+                    <option value="electronics">Електроніка</option>
+                    <option value="clothes">Одяг</option>
+                    <option value="books">Книги</option>
+                    <option value="tools">Інструменти</option>
+                    <option value="other">Інше</option>
+                </select>
+                <select id="distanceFilter">
+                    <option value="1">1 км</option>
+                    <option value="3">3 км</option>
+                    <option value="5">5 км</option>
+                    <option value="10">10 км</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="Пошук...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="offers-grid" id="offersContainer">
+                <!-- Пропозиції будуть додаватись через JS -->
+            </div>
+        </section>
+
+        <section id="requests">
+            <h2>Актуальні запити</h2>
+            <div class="requests-list" id="requestsContainer">
+                <!-- Запити будуть додаватись через JS -->
+            </div>
+        </section>
+
+        <section id="add">
+            <h2>Додати пропозицію або запит</h2>
+            <div class="add-form">
+                <div class="form-tabs">
+                    <button class="tab-btn active" data-tab="offer">Пропозиція</button>
+                    <button class="tab-btn" data-tab="request">Запит</button>
+                </div>
+
+                <div class="tab-content active" id="offerTab">
+                    <form id="offerForm">
+                        <div class="form-group">
+                            <label for="offerTitle">Назва:</label>
+                            <input type="text" id="offerTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="offerCategory">Категорія:</label>
+                            <select id="offerCategory" required>
+                                <option value="">Виберіть категорію</option>
+                                <option value="furniture">Меблі</option>
+                                <option value="electronics">Електроніка</option>
+                                <option value="clothes">Одяг</option>
+                                <option value="books">Книги</option>
+                                <option value="tools">Інструменти</option>
+                                <option value="other">Інше</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="offerDescription">Опис:</label>
+                            <textarea id="offerDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="offerCondition">Стан:</label>
+                            <select id="offerCondition">
+                                <option value="new">Новий</option>
+                                <option value="like_new">Як новий</option>
+                                <option value="good">Добрий</option>
+                                <option value="used">Вживаний</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="offerPhoto">Фото:</label>
+                            <input type="file" id="offerPhoto" accept="image/*">
+                        </div>
+                        <button type="submit" class="submit-btn">Опублікувати</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="requestTab">
+                    <form id="requestForm">
+                        <div class="form-group">
+                            <label for="requestTitle">Що вам потрібно:</label>
+                            <input type="text" id="requestTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="requestCategory">Категорія:</label>
+                            <select id="requestCategory" required>
+                                <option value="">Виберіть категорію</option>
+                                <option value="items">Речі</option>
+                                <option value="services">Послуги</option>
+                                <option value="help">Допомога</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="requestDescription">Деталі:</label>
+                            <textarea id="requestDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="requestUrgency">Терміновість:</label>
+                            <select id="requestUrgency">
+                                <option value="low">Не терміново</option>
+                                <option value="medium">Помірно терміново</option>
+                                <option value="high">Дуже терміново</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Опублікувати запит</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile">
+            <h2>Ваш профіль</h2>
+            <div class="profile-container">
+                <div class="profile-sidebar">
+                    <div class="avatar">
+                        <img src="https://via.placeholder.com/150" alt="Аватар" id="userAvatar">
+                        <button class="change-avatar-btn">Змінити фото</button>
+                    </div>
+                    <h3 id="userName">Ім'я Користувача</h3>
+                    <p id="userLocation"><i class="fas fa-map-marker-alt"></i> Місто, Район</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span id="userRating">4.8</span>
+                        <span>(<span id="userReviews">12</span> відгуків)</span>
+                    </div>
+                    <nav class="profile-menu">
+                        <ul>
+                            <li class="active"><a href="#my-items">Мої пропозиції</a></li>
+                            <li><a href="#my-requests">Мої запити</a></li>
+                            <li><a href="#my-exchanges">Мої обміни</a></li>
+                            <li><a href="#settings">Налаштування</a></li>
+                            <li><a href="#my-chats">Мої чати</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="profile-content">
+                    <div id="my-items" class="profile-section active">
+                        <h3>Мої пропозиції</h3>
+                        <div class="user-items-grid" id="userItemsContainer">
+                            <!-- У розділі profile-content -->
+                            <div id="my-chats" class="profile-section">
+                                <h3>Мої чати</h3>
+                                <div class="chats-list" id="chatsList">
+                                    <!-- Приклад чату -->
+                                    <div class="chat-item" data-chat-id="1">
+                                        <img src="https://via.placeholder.com/50" alt="User" class="chat-avatar">
+                                        <div class="chat-info">
+                                            <div class="chat-user">Іван Сидоренко</div>
+                                            <div class="chat-preview">Привіт, чи актуальний ваш диван?</div>
+                                        </div>
+                                        <div class="chat-time">10:30</div>
+                                        <div class="chat-unread">2</div>
+                                    </div>
+
+                                    <!-- Другий чат -->
+                                    <div class="chat-item" data-chat-id="2">
+                                        <img src="https://via.placeholder.com/50" alt="User" class="chat-avatar">
+                                        <div class="chat-info">
+                                            <div class="chat-user">Олена Петренко</div>
+                                            <div class="chat-preview">Дякую за книгу!</div>
+                                        </div>
+                                        <div class="chat-time">вчора</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="my-requests" class="profile-section">
+                        <h3>Мої запити</h3>
+                        <div class="user-requests-list" id="userRequestsContainer">
+                            <!-- Тут будуть запити користувача -->
+                        </div>
+                    </div>
+                    <div id="my-exchanges" class="profile-section">
+                        <h3>Історія обмінів</h3>
+                        <div class="exchanges-list" id="exchangesContainer">
+                            <!-- Тут будуть обміни користувача -->
+                        </div>
+                    </div>
+                    <div id="settings" class="profile-section">
+                        <h3>Налаштування профілю</h3>
+                        <form id="settingsForm">
+                            <div class="form-group">
+                                <label for="userNameInput">Ім'я:</label>
+                                <input type="text" id="userNameInput" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userEmail">Email:</label>
+                                <input type="email" id="userEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userAddress">Адреса:</label>
+                                <input type="text" id="userAddress" placeholder="Вулиця, будинок, квартира">
+                            </div>
+                            <div class="form-group">
+                                <label for="userNeighborhood">Район:</label>
+                                <input type="text" id="userNeighborhood" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPhone">Телефон:</label>
+                                <input type="tel" id="userPhone">
+                            </div>
+                            <div class="form-group">
+                                <label for="userBio">Про себе:</label>
+                                <textarea id="userBio" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Зберегти зміни</button>
+                        </form>
+                    </div>
+                    <div id="my-chats" class="profile-section">
+                        <h3>Мої чати</h3>
+                        <div class="chats-list" id="chatsList">
+                            <!-- Тут будуть чати користувача -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальне вікно авторизації -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" data-tab="login">Увійти</button>
+                <button class="auth-tab-btn" data-tab="register">Реєстрація</button>
+            </div>
+
+            <div id="loginTab" class="auth-tab-content active">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль:</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Увійти</button>
+                    <p class="auth-link">Забули пароль? <a href="#reset-password">Відновити</a></p>
+                </form>
+            </div>
+
+            <div id="registerTab" class="auth-tab-content">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Ім'я:</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email:</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Пароль:</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Підтвердіть пароль:</label>
+                        <input type="password" id="registerConfirmPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerNeighborhood">Ваш район:</label>
+                        <input type="text" id="registerNeighborhood" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Зареєструватись</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно пропозиції -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content item-modal">
+            <span class="close-modal">&times;</span>
+            <div class="item-modal-content">
+                <div class="item-gallery">
+                    <img src="https://via.placeholder.com/400x300" alt="Item photo" id="modalItemImage">
+                    <div class="item-thumbnails">
+                        <!-- Тут будуть мініатюри -->
+                    </div>
+                </div>
+                <div class="item-details">
+                    <h2 id="modalItemTitle">Назва предмету</h2>
+                    <div class="item-meta">
+                        <span class="item-category" id="modalItemCategory">Категорія</span>
+                        <span class="item-condition" id="modalItemCondition">Стан</span>
+                    </div>
+                    <div class="item-description">
+                        <h3>Опис:</h3>
+                        <p id="modalItemDescription">Детальний опис предмету або послуги...</p>
+                    </div>
+                    <div class="item-owner">
+                        <div class="owner-avatar">
+                            <img src="https://via.placeholder.com/50" alt="Owner avatar">
+                        </div>
+                        <div class="owner-info">
+                            <h4 id="modalItemOwner">Ім'я власника</h4>
+                            <p class="owner-location" id="modalItemLocation"><i class="fas fa-map-marker-alt"></i> Район</p>
+                            <div class="owner-rating">
+                                <i class="fas fa-star"></i>
+                                <span id="modalItemRating">4.5</span>
+                                <span>(<span id="modalItemReviews">8</span> відгуків)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="contact-btn"><i class="fas fa-comment-dots"></i> Чат</button>
+                        <button class="exchange-btn"><i class="fas fa-exchange-alt"></i> Обмін</button>
+                        <button class="save-btn"><i class="far fa-bookmark"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно чату -->
+    <div id="chatModal" class="modal">
+        <div class="modal-content chat-modal">
+            <span class="close-modal">&times;</span>
+            <div class="chat-header">
+                <h3><i class="fas fa-comments"></i> Чат з <span id="chatWithUser">Користувачем</span></h3>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Повідомлення чату будуть тут -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatMessageInput" placeholder="Напишіть повідомлення...">
+                <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>СусідОбмін</h3>
+                    <p>Платформа для обміну речами та послугами між сусідами</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Навігація</h3>
+                    <ul>
+                        <li><a href="#home">Головна</a></li>
+                        <li><a href="#offers">Пропозиції</a></li>
+                        <li><a href="#requests">Запити</a></li>
+                        <li><a href="#add">Додати</a></li>
+                        <li><a href="#profile">Профіль</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@susidobmin.com</li>
+                        <li><i class="fas fa-phone"></i> +380 12 345 6789</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Соціальні мережі</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 СусідОбмін. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
