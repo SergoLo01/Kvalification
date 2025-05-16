@@ -167,6 +167,27 @@
             </div>
         </section>
 
+        <script type="module">
+           
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-analytics.js";
+           
+            const firebaseConfig = {
+                apiKey: "AIzaSyCA2qi00RJzaxK109gtRiK-vBe5vYYjUzk",
+                authDomain: "test1-93d9b.firebaseapp.com",
+                databaseURL: "https://test1-93d9b-default-rtdb.firebaseio.com",
+                projectId: "test1-93d9b",
+                storageBucket: "test1-93d9b.firebasestorage.app",
+                messagingSenderId: "665288346984",
+                appId: "1:665288346984:web:3b6fa2bbb9e5ed53b31add",
+                measurementId: "G-XGQHQ2KMZ1"
+            };
+
+            // Ініціалізація БД
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+        </script>
+
         <section id="profile">
             <h2>Ваш профіль</h2>
             <div class="profile-container">
